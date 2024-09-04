@@ -11,6 +11,8 @@ import 'package:parkingold/resources/colors.dart';
 import 'package:parkingold/resources/dimens.dart';
 import 'package:provider/provider.dart';
 
+import 'providers/image_quality.provider.dart';
+
 Future<void> main() async {
   await GetStorage.init();
   await SpUtil.getInstance();
@@ -43,18 +45,20 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Widget _buildMaterialApp(
-      BuildContext context) {
-    return MaterialApp(
-      title: 'Parkingold - giữ xe',
-      // localizationsDelegates: ParkingetherLocalizations.localizationsDelegates,
-      // supportedLocales: ParkingetherLocalizations.supportedLocales,
-      // locale: localeProvider.locale,
-      theme: ThemeData(
-        fontFamily: GoogleFonts.montserrat().fontFamily,
-        // primarySwatch: Colors.blue,
+  Widget _buildMaterialApp(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ImageQualityProvider(),
+      child: MaterialApp(
+        title: 'Parkingold - giữ xe',
+        // localizationsDelegates: ParkingetherLocalizations.localizationsDelegates,
+        // supportedLocales: ParkingetherLocalizations.supportedLocales,
+        // locale: localeProvider.locale,
+        theme: ThemeData(
+          fontFamily: GoogleFonts.montserrat().fontFamily,
+          // primarySwatch: Colors.blue,
+        ),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }

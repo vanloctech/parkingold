@@ -158,9 +158,10 @@ class _SettingPageState extends State<SettingPage> {
                       title: 'Phí giữ xe',
                       desc: '2,000đ/lượt',
                     ),
-                    ChangeNotifierProvider(
-                      create: (context) => ImageQualityProvider(),
-                      child: Consumer<ImageQualityProvider>(
+                    // ChangeNotifierProvider(
+                    //   create: (context) => ImageQualityProvider(),
+                    //   child: 
+                      Consumer<ImageQualityProvider>(
                         builder: (context, imageQuality, child) {
                           print('ben ngoai ' + imageQuality.mode);
                           print('re-render');
@@ -180,7 +181,7 @@ class _SettingPageState extends State<SettingPage> {
                           );
                         },
                       ),
-                    ),
+                    // ),
                     // CardSetting(
                     //   icon: Icons.language_outlined,
                     //   title: 'Ngôn ngữ',

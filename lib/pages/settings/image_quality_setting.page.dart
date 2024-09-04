@@ -30,89 +30,86 @@ class _ImageQualitySettingPageState extends State<ImageQualitySettingPage> {
     final List<String> list = ImageQualityHelper.maps(context).values.toList();
     final Map<String, String> mapQuality = ImageQualityHelper.maps(context);
 
-    var app = MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ImageQualityProvider())],
-      child: Consumer<ImageQualityProvider>(
-        builder: (context, ImageQualityProvider imageQualityProvider, child) {
-          // imageQualityProvider.getQuality();
-          String mode = imageQualityProvider.mode;
-          print('mode from provider $mode');
-          
-          return ListView.builder(
-            itemCount: mapQuality.length,
-            itemBuilder: (_, int index) {
-              String key = mapQuality.keys.elementAt(index);
-              return InkWell(
-                onTap: () {
-                  imageQualityProvider.createOrUpdate(mapQuality.keys.elementAt(index));
-                  MyToast.show('Thành công');
-                  setState(() {});
-                },
-                child: Container(
-                  margin:
-                  const EdgeInsets.only(bottom: Dimens.gap_dp15),
-                  decoration: BoxDecoration(
-                      border: mode == key
-                          ? Border.all(
-                          color: Colours.buttonColor, width: 2)
-                          : const Border(),
-                      color: Colours.white,
-                      borderRadius:
-                      BorderRadius.circular(Dimens.radius_25),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colours.grey.withOpacity(0.05),
-                      //     spreadRadius: 5,
-                      //     blurRadius: 5,
-                      //     // changes position of shadow
-                      //   ),
-                      // ]
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            width: (context.width - 90) * 0.7,
-                            child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  list[index],
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colours.mainFontColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+    var app = Consumer<ImageQualityProvider>(
+      builder: (context, ImageQualityProvider imageQualityProvider, child) {
+        // imageQualityProvider.getQuality();
+        String mode = imageQualityProvider.mode;
+        print('mode from provider $mode');
+        
+        return ListView.builder(
+          itemCount: mapQuality.length,
+          itemBuilder: (_, int index) {
+            String key = mapQuality.keys.elementAt(index);
+            return InkWell(
+              onTap: () {
+                imageQualityProvider.createOrUpdate(mapQuality.keys.elementAt(index));
+                MyToast.show('Thành công');
+                setState(() {});
+              },
+              child: Container(
+                margin:
+                const EdgeInsets.only(bottom: Dimens.gap_dp15),
+                decoration: BoxDecoration(
+                    border: mode == key
+                        ? Border.all(
+                        color: Colours.buttonColor, width: 2)
+                        : const Border(),
+                    color: Colours.white,
+                    borderRadius:
+                    BorderRadius.circular(Dimens.radius_25),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colours.grey.withOpacity(0.05),
+                    //     spreadRadius: 5,
+                    //     blurRadius: 5,
+                    //     // changes position of shadow
+                    //   ),
+                    // ]
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          width: (context.width - 90) * 0.7,
+                          child: Column(
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
                             children: [
-                              Opacity(
-                                opacity: mode == key ? 1 : 0,
-                                child: const Icon(Icons.done,
-                                    color: Colours.buttonColor),
+                              Text(
+                                list[index],
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colours.mainFontColor,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Opacity(
+                              opacity: mode == key ? 1 : 0,
+                              child: const Icon(Icons.done,
+                                  color: Colours.buttonColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          );
-        },
-      ),
+              ),
+            );
+          },
+        );
+      },
     );
 
     return Scaffold(
